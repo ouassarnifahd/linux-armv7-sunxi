@@ -3,3 +3,9 @@ Built for ArchLinuxARM and includes:
 - Armbian sunxi-next patches.
 - working Ethernet controler.
 - xradio_wlan driver.
+
+### Compiling:
+
+Make sure you have an armhf toolchain (arm-linux-gnueabihf) in your PATH variable and run:
+
+    $ CARCH=armv7h makepkg -s
