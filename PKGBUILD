@@ -7,7 +7,7 @@ _srcname=linux-5.1
 _kernelname=${pkgbase#linux}
 _desc="ARMv7 Allwinner H3/H2+ mainline kernel (Armbian sunxi-next patches + xradio_wlan driver)"
 pkgver=5.1
-pkgrel=0
+pkgrel=1
 arch=('armv7h')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -28,7 +28,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         'https://raw.githubusercontent.com/armbian/build/master/patch/kernel/sunxi-next/0018-iio-adc-sun4i-gpadc-iio-add-support-for-A83T-thermal.patch'
         'https://raw.githubusercontent.com/armbian/build/master/patch/kernel/sunxi-next/0019-arm-dts-sunxi-h3-h5-add-support-for-the-thermal-sens.patch'
         'https://raw.githubusercontent.com/armbian/build/master/patch/kernel/sunxi-next/0020-arm-dts-sun8i-h3-add-support-for-the-thermal-sensor-.patch'
-        '0021-arm-dts-sun8i-h3-add-thermal-zone-to-H3.patch'
+        'https://raw.githubusercontent.com/armbian/build/master/patch/kernel/sunxi-next/0021-arm-dts-sun8i-h3-add-thermal-zone-to-H3.patch'
 
         'https://raw.githubusercontent.com/armbian/build/master/patch/kernel/sunxi-next/wifi-add-xradio.patch'
         'https://raw.githubusercontent.com/armbian/build/master/patch/kernel/sunxi-next/wifi-orangepi-zero-fix-xradio-interrupt.patch'
@@ -42,7 +42,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '60-linux.hook'
         '90-linux.hook')
 md5sums=('15fbdff95ff98483069ac6e215b9f4f9'
-         '74d659a0c4199558512144e4d64f92fb'
+         '313ab5455a480482e9125172e76d7c0d'
          
          '5ecc8ac84d8f3eaada152766dce06a8e'
 
@@ -56,7 +56,7 @@ md5sums=('15fbdff95ff98483069ac6e215b9f4f9'
          'd965ea8f6ffc9c2dd09d92f4dea29569'
          '74c132e49953348df0ca7624b7bbbe7f'
          'e162fa063cb948662ee681a364dd094f'
-         '0ee68b3455be67e02637bc5c0d5deb8a'
+         'e6741243f6298e629e3131ed5369baf5'
 
          '7169fdf75ba0ef4fbe8eddebb162b4f1'
          '91c6368be514b624e1ae2f8c73d3936c'
@@ -93,7 +93,7 @@ prepare() {
   patch -p1 < ../0018-iio-adc-sun4i-gpadc-iio-add-support-for-A83T-thermal.patch
   patch -p1 < ../0019-arm-dts-sunxi-h3-h5-add-support-for-the-thermal-sens.patch
   patch -p1 < ../0020-arm-dts-sun8i-h3-add-support-for-the-thermal-sensor-.patch
-  patch arch/arm/boot/dts/sun8i-h3.dtsi < ../0021-arm-dts-sun8i-h3-add-thermal-zone-to-H3.patch
+  patch -p1 < ../0021-arm-dts-sun8i-h3-add-thermal-zone-to-H3.patch
 
   patch -p1 < ../wifi-add-xradio.patch
   patch -p1 < ../wifi-orangepi-zero-fix-xradio-interrupt.patch
@@ -141,7 +141,7 @@ build() {
   #yes "" | make config
 
   # build!
-  make "ARCH=${_arch}" "CROSS_COMPILE=${_toolchain}" ${makeflags} zImage modules dtbs
+  make "ARCH=${_arch}" "CROSS_COMPILE=${_toolchain}" ${makeflags} dtbs #zImage modules dtbs
 }
 
 _package() {
