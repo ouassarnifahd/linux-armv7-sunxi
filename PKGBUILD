@@ -141,7 +141,7 @@ build() {
   #yes "" | make config
 
   # build!
-  make "ARCH=${_arch}" "CROSS_COMPILE=${_toolchain}" ${makeflags} dtbs #zImage modules dtbs
+  make "ARCH=${_arch}" "CROSS_COMPILE=${_toolchain}" ${makeflags} zImage modules dtbs
 }
 
 _package() {
